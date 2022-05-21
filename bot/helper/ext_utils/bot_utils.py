@@ -21,19 +21,19 @@ PAGE_NO = 1
 
 
 class MirrorStatus:
-    STATUS_UPLOADING = "Uploading...📤"
-    STATUS_DOWNLOADING = "Downloading...📥"
-    STATUS_CLONING = "Cloning...♻️"
-    STATUS_WAITING = "Queued...📝"
-    STATUS_FAILED = "Failed 🚫. Cleaning Download..."
-    STATUS_PAUSE = "Paused...⭕️"
-    STATUS_ARCHIVING = "Archiving...🔐"
-    STATUS_EXTRACTING = "Extracting...📂"
-    STATUS_SPLITTING = "Splitting...✂️"
+    STATUS_UPLOADING = "Uploading...⟰"
+    STATUS_DOWNLOADING = "Downloading...⟱"
+    STATUS_CLONING = "Cloning...♲"
+    STATUS_WAITING = "Queued...𝍄"
+    STATUS_FAILED = "Failed✘, Cleaning Download..."
+    STATUS_PAUSE = "Paused...⦷"
+    STATUS_ARCHIVING = "Archiving...⚿"
+    STATUS_EXTRACTING = "Extracting...♺"
+    STATUS_SPLITTING = "Splitting..."
 
 
-PROGRESS_MAX_SIZE = 100 // 8
-PROGRESS_INCOMPLETE = ['▏', '▎', '▍', '▌', '▋', '▊', '▉']
+PROGRESS_MAX_SIZE = 100 // 5
+PROGRESS_INCOMPLETE = ['◔', '◑', '◕', '●']
 
 SIZE_UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
 
@@ -102,16 +102,16 @@ def getAllDownload():
     return None
 
 def get_progress_bar_string(status):
-    completed = status.processed_bytes() / 8
-    total = status.size_raw() / 8
+    completed = status.processed_bytes() / 5
+    total = status.size_raw() / 5
     p = 0 if total == 0 else round(completed * 100 / total)
     p = min(max(p, 0), 100)
-    cFull = p // 8
-    cPart = p % 8 - 1
-    p_str = '█' * cFull
+    cFull = p // 5
+    cPart = p % 5 - 1
+    p_str = '●' * cFull
     if cPart >= 0:
         p_str += PROGRESS_INCOMPLETE[cPart]
-    p_str += ' ' * (PROGRESS_MAX_SIZE - cFull)
+    p_str += '○' * (PROGRESS_MAX_SIZE - cFull)
     p_str = f"[{p_str}]"
     return p_str
 
